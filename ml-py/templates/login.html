@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body 
+    style="margin:0;display:flex; justify-content:center;align-items:center; width: 100%;">
+    <div>
+        {% block conteudo %}
+        <form
+            style="display: block; padding: 50px;background-color: gray;" 
+            action="/autenticar"
+            method="post"
+        >
+            <div class="font-padron" style="margin-bottom:10px ;">
+                Usuario : <input type="text" name="usuario">
+            </div>
+            <div 
+                class="font-padron"
+                style="margin-bottom: 10px;"
+            >
+                Senha   : <input style="margin-left:11px" type="text" name="senha">
+            </div>
+            <div 
+                class="font-padron" 
+                style="width:100%; display:flex; justify-content: center; align-items: center;"
+            >
+                <button type="submit">Entrar</button>
+            </div>
+    
+        </form>
+    
+        {% endblock %}    
+    </div>    
+</body>
+<style>
+    .font-padron{
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+</style>
+</html>
