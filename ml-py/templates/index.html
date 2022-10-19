@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jujuba Store</title>
+</head>
+<body>
+    <div 
+        id="header" 
+        class="dis-flex width-100 center_compo"
+    >
+        <div style="padding:10px ;">
+            <img 
+                src="{{url_for('static', filename='Logo_e_submarca_Jujuba_Store-removebg-preview.png')}}" 
+                style="background-size:cover; width: 200px; height:200px;">
+        </div>
+        Jujuba Store
+    </div>
+    <div 
+        id="all_components" 
+        class="height-100 width-100 dis-flex" 
+    >
+        <div 
+            id="cursos" 
+            class="dis-block"
+        >
+            <div style="overflow-y:auto ;" class="width-100 metade">
+                <div
+                    id="course_choice"  
+                    class="dis-block"
+                >
+                <form action="/choice_course" style="display:block ;" method="post">
+                    {% for curso in list.cursos.cursos %}
+                    <button 
+                        type="submit" 
+                        name="button_choice" 
+                        value="{{curso.id}}" 
+                        class="font-padron" 
+                        style="padding:10px; padding: 5px 20px; margin: 2px 50px; border-radius: 10px; "
+                    >
+                        {{curso.nome}}
+                    </button>
+                    {% endfor %}
+                </form>
+                </div>
+            </div>
+            <div id="card_chat" class="width-100 font-white dis-flex center_compo metade">
+                <form action="/create_course" class="width-100 dis-flex center_compo" method="post">
+                    <div class="width-100">
+                        <div class="font-padron">
+                            nome do curso: <input name="name_course" type="text">
+                        </div>
+                        <div 
+                            class="font-padron"
+                            style="height: auto;"    
+                        >
+                            descrição do curso : <input name="description" type="text">
+                        </div>
+                        <div class="font-padron">
+                            link do curso : <input name="link" type="text">
+                        </div>
+                        <button 
+                            type="submit"
+                            style="width: 68%; border-radius:4px;padding: 10px; margin-top:10px; border:none"
+                        >
+                            Salvar curso
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div id="chat_and_description" class="height-100" >
+            <div 
+                id="grafic" 
+                class="dis-flex center_compo"
+            >
+            {% if list.index == 0 %}
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/kpTBWulJ8MI" title="YouTube video player"
+                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            {% else %}
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/bnjkjAxxqEo" title="YouTube video player"
+                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            {%endif%}
+            </div>
+            <div 
+                id="description_course"
+                class="center_compo dis-flex font-padron"
+            >
+                {% if list.cursos.cursos[0].descricao %}
+                    {{list.cursos.cursos[0].descricao}}
+                {% else %}
+                    {{list.cursos.cursos[list.index].descricao}}
+                {% endif %}
+            </div>
+        </div>
+        <div 
+            id="forum" 
+            class="height-100 dis-flex center_compo"
+        >
+            <div class="height-100 width-100 dis-block">
+                <div 
+                    id="coments" 
+                    class="width-100 dis-flex center_compo font-padron" 
+                >
+                    <div style="display: block; width: 80%;">
+                        {% for coment in list.coments.comments%}
+                        <div 
+                            class="font-padron dis-flex center_compo" 
+                            style="background-color: #d3d3d3;border-radius:10px;padding: 20px 10px; font-size:10px; margin-bottom: 10px;"
+                        >
+                            {{coment.body}}
+                        </div>        
+                        {% endfor %}
+                    </div>
+                </div>
+                <form action="/create_comentary" method="post">
+                    <div 
+                        id="input_coments" 
+                        class="width-100 dis-flex center_compo" 
+                    >
+                        <input class="width-100 "id="textando" name="comentary" type="text">
+                        <button type="submit" id="button_save" >
+                            Salvar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+</body>
+<style>
+    .metade{
+        height:50%  
+    }
+    .font-white{
+        color:white;
+    }
+    .dis-block{
+        display:block;
+    }
+    .width-100{
+        width:100%;
+    }
+    .height-100{
+        height:100%;
+    }
+    .font-padron{
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+    .dis-flex{
+        display:flex;
+    }
+    .center_compo{
+        align-items:center;
+        justify-content:center;
+    }
+    .box-cursos{
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        padding:10px 50px; 
+        margin:5px; 
+        border-radius: 10px;
+    }
+    #description_course{
+        text-align: justify;
+        word-spacing: 5px;
+        text-rendering:geometricPrecision ;
+        border-radius:10px; 
+        margin:20px 50px; 
+        height: 44%; 
+    }
+    #course_choice{
+        overflow-y: auto;
+        text-align: center; 
+        font-size:20px;
+    }
+    #card_chat{
+        background-color: #c85103;
+    }
+    #button_save{
+        background-size: cover;
+        padding:18px;
+        background-color:white; 
+        margin-right: 5px; 
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+    #textando{
+        margin:15px 0 15px 30px; 
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        height:50px; 
+        text-decoration:none; 
+    }
+    #cursos{
+        background-color: #d3d3d3;
+        width:20%;
+    }
+    #grafic{
+        background-color:black;
+        color:white;
+        margin:20px 50px;
+        height:auto;
+        width:auto;
+    }
+    #coments{
+        height:85%;
+        overflow-y: auto;
+    }
+    #input_coments{
+        background-image: url('./img/escrita.gif'); 
+        background-size:cover;
+        height:15%;
+    }
+    #chat_and_description{
+        width:60%;
+    }
+    #forum{
+        background-color:#f99e4d; 
+        width:20%; 
+    }
+    #all_components{
+        position: absolute; 
+    }
+    #header{
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;    
+        background-color:#c85103; 
+        color:white;
+        height:80px;
+        font-weight: bolder;
+        font-size: 24px;
+    }
+    body{margin: 0;}
+</style>
+</html>
